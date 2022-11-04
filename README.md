@@ -1,1 +1,1 @@
-# js_common_code_es6
+* the common code to raise the level of work
