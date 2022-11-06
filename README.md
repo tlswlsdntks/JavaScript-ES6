@@ -1,1 +1,1 @@
-* the common code to raise the level of work
+* the common code to raise the level of work (es6)
