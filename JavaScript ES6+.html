@@ -137,7 +137,7 @@
 
 		//	- 이터레이터: { value, done } 객체를 리턴하는 next()를 가진 값.
 		let iterator = arr[Symbol.iterator]();
-		for(const a of arr) log(iterator.next());
+		for (const a of arr) log(iterator.next());
 
 		//	- 이터러블/이터레이터 프로토콜: 이러러블을 for...of, 전개 연산자 등과 함께 동작하도록한 규약.
 		let it = map.values();
@@ -145,6 +145,44 @@
 		console.log(it2.next());
 		console.log(it2.next());
 		console.log(it2.next());
+
+	</script>
+
+	<script>
+
+		// ### 사용자 정의 이터러블을 통해 알아보기.
+		const iterable = {
+			[Symbol.iterator]() {
+				let i = 3;
+				return {
+					next() {
+						return i == 0 ? { done: true } : { value: i--, done: false }
+					},
+					[Symbol.iterator]() { return this; }
+				}
+			}
+		};
+		let iterator2 = iterable[Symbol.iterator]();
+		console.log(iterator2.next());
+		console.log(iterator2.next());
+		console.log(iterator2.next());
+		console.log(iterator2.next());
+
+		for (const a of iterable) log(a);
+		for (const a of iterator2) log(a);
+
+		const arr2 = [1, 2, 3];
+		let iter22 = arr2[Symbol.iterator]();
+		iter22.next();
+		log(iter22[Symbol.iterator]() == iter22);
+		for (const a of iter22) log(a);
+
+		for (const a of document.querySelectorAll('*')) log(a);
+		const all = document.querySelectorAll('*');
+		let iter33 = all[Symbol.iterator]();
+		log(iter33.next());
+		log(iter33.next());
+		log(iter33.next());
 
 	</script>
 
