@@ -186,6 +186,17 @@
 
 	</script>
 
+	<script>
+
+		// ## 전개연산자
+		const aa = [1, 2];
+		// aa[Symbol.iterator] = null;
+		log(...aa);
+		log([...aa, [3, 4]]);
+		log([...aa, ...arr, ...set, ...map.keys()]);
+
+	</script>
+
 </body>
 
 </html>
