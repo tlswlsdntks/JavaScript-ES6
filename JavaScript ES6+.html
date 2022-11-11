@@ -245,9 +245,27 @@
 		log(iterodds.next());
 		log(iterodds.next());
 
-		for(const a of odds(40)) log(a);
+		for (const a of odds(40)) log(a);
 
 	</script>
+
+	<script>
+
+		// # for of, 전개 연산자, 구조 분해, 나머지 연산자
+		log(...odds(10));
+		log([...odds(10), ...odds(20)]);
+
+		const [head, ...tail] = odds(5);
+		log(head);
+		log(tail);
+
+		const [one, two, ...rest] = odds(10);
+		log(one);
+		log(two);
+		log(rest);
+
+	</script>
+
 
 </body>
 
