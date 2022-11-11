@@ -69,7 +69,7 @@
 
 		const times = (f, n) => {
 			let i = -1;
-			while(++i < n) f(i);
+			while (++i < n) f(i);
 		}
 		times(log, 3);
 		times(a => log(a + 10), 3);
@@ -78,6 +78,21 @@
 		const add15 = addMaker(15);
 		log(add15);
 		log(add15(5));
+
+	</script>
+
+	<script>
+
+		// ## 기존과 달라진 ES6에서의 리스트 순회
+		//	- for i++
+		//	- for of
+		const list = [1, 2, 3];
+		const str = "abc";
+		for (var i = 0, len = list.length; i < len; i++) log(list[i]);
+		for (var i = 0, len = str.length; i < len; i++) log(str[i]);
+
+		for (const a of list) log(a);
+		for (const a of str) log(a);
 
 	</script>
 
