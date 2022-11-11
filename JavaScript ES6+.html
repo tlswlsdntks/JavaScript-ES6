@@ -197,6 +197,26 @@
 
 	</script>
 
+	<script>
+
+		// # 제네레이터/이터레이터
+		// 	- 제네레이터: 이터레이터이자 이터러블을 생성하는 함수.
+
+		function* gen() {
+			yield 1;
+			if (false) yield 2;
+			yield 3;
+			return 100;
+		}
+		for (const a of gen()) log(a);
+
+		let iter11 = gen();
+		log(iter11[Symbol.iterator]() == iter11);
+		log(iter11.next());
+		for (const a of iter11) log(a);
+
+	</script>
+
 </body>
 
 </html>
