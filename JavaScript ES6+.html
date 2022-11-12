@@ -326,7 +326,8 @@
 		for (const p of products) {
 			if (p.price >= 20000) over20000.push(p);
 		}
-		log(over20000);
+		// log(over20000);
+		log(...over20000);
 
 		const filter = (fn, iter) => {
 			let res = [];
