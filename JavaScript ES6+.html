@@ -348,6 +348,32 @@
 
 	</script>
 
+	<script>
+
+		// # reduce
+		let nums = [1, 2, 3, 4, 5];
+		let total = 0;
+		for (const n of nums) total += n;
+		log(total);
+
+		const reduce = (fn, acc, iter) => {
+			if (!iter) {
+				iter = acc[Symbol.iterator]();
+				// { value: 1, done: false }
+				acc = iter.next().value;
+			}
+			for (const a of iter) acc = fn(acc, a);
+			return acc;
+		}
+		let add = (a, b) => a + b;
+		log(reduce(add, 0, nums));
+		// log(add(add(add(add(add(0, 1), 2), 3), 4), 5));
+		log(reduce(add, nums));
+
+		log(reduce((tp, product) => tp += product.price, 0, products));
+
+	</script>
+
 </body>
 
 </html>
