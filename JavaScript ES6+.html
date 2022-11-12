@@ -101,47 +101,47 @@
 
 		// ## Array를 통해 알아보기.
 		log("=== Arr ===");
-		const arr = [1, 2, 3];
+		const arrL = [1, 2, 3];
 		// for (const a of arr) log(a);
-		let iter1 = arr[Symbol.iterator]();
+		let iter1 = arrL[Symbol.iterator]();
 		iter1.next();
 		iter1.next();
 		for (const a of iter1) log(a);
 
 		// ## Set를 통해 알아보기.
 		log("=== Set ===");
-		const set = new Set([1, 2, 3]);
-		// for (const a of set) log(a);
-		let iter2 = set[Symbol.iterator]();
+		const setL = new Set([1, 2, 3]);
+		// for (const a of setL) log(a);
+		let iter2 = setL[Symbol.iterator]();
 		iter2.next();
 		iter2.next();
 		for (const a of iter2) log(a);
 
 		// ## Map를 통해 알아보기.
 		log("=== Map ===");
-		const map = new Map([['a', 1], ['b', 2], ['c', 3]]);
-		// for (const a of iter2) log(a);
-		let iter3 = map[Symbol.iterator]();
+		const mapL = new Map([['a', 1], ['b', 2], ['c', 3]]);
+		// for (const a of mapL) log(a);
+		let iter3 = mapL[Symbol.iterator]();
 		iter3.next();
 		iter3.next();
 		for (const a of iter3) log(a);
-		for (const a of map.keys()) log(a);
-		for (const a of map.values()) log(a);
-		for (const a of map.entries()) log(a);
+		for (const a of mapL.keys()) log(a);
+		for (const a of mapL.values()) log(a);
+		for (const a of mapL.entries()) log(a);
 
 		// ## 이터러블/이터레이터 프로토콜
 		// 	- 이터러블: 이터레이터를 리턴하는 [Symbol.iterator]()를 가진 값.
-		log(arr[Symbol.iterator]);
+		log(arrL[Symbol.iterator]);
 		// arr[Symbol.iterator] = null;
-		log(set[Symbol.iterator]);
-		log(map[Symbol.iterator]);
+		log(setL[Symbol.iterator]);
+		log(mapL[Symbol.iterator]);
 
 		//	- 이터레이터: { value, done } 객체를 리턴하는 next()를 가진 값.
-		let iterator = arr[Symbol.iterator]();
-		for (const a of arr) log(iterator.next());
+		let iterator = arrL[Symbol.iterator]();
+		for (const a of arrL) log(iterator.next());
 
 		//	- 이터러블/이터레이터 프로토콜: 이러러블을 for...of, 전개 연산자 등과 함께 동작하도록한 규약.
-		let it = map.values();
+		let it = mapL.values();
 		let it2 = it[Symbol.iterator]();
 		console.log(it2.next());
 		console.log(it2.next());
@@ -195,7 +195,7 @@
 		log(...aa);
 		log([...aa, [3, 4]]);
 		log([...aa, ...[3, 4]]);
-		log([...aa, ...arr, ...set, ...map.keys()]);
+		log([...aa, ...arrL, ...setL, ...mapL.keys()]);
 
 	</script>
 
@@ -211,11 +211,11 @@
 			return 100;
 		}
 		for (const a of gen()) log(a);
-		let iter = gen();
-		log(iter == iter[Symbol.iterator]());
-		log(iter.next());
-		log(iter.next());
-		log(iter.next());
+		let iter0 = gen();
+		log(iter0 == iter0[Symbol.iterator]());
+		log(iter0.next());
+		log(iter0.next());
+		log(iter0.next());
 
 	</script>
 
@@ -268,6 +268,56 @@
 
 	</script>
 
+	<script>
+
+		const products = [
+			{ name: '반팔티', price: 15000 },
+			{ name: '긴팔티', price: 20000 },
+			{ name: '핸드폰케이스', price: 15000 },
+			{ name: '후드티', price: 30000 },
+			{ name: '바지', price: 25000 },
+		];
+
+		let names = [];
+		for (const p of products) {
+			names.push(p.name);
+		}
+		log(names);
+
+		// # map
+		const map = (fn, iter) => {
+			let res = [];
+			for (const a of iter) {
+				res.push(fn(a));
+			}
+			return res;
+		}
+		log(map(p => p.name, products));
+
+		// # 이터러블 프로토콜을 이용한 map의 다형성
+		log([1, 2, 3].map(a => a + 1));
+		// log(document.querySelectorAll('*').map(el => el.nodeName));
+		log(map(el => el.nodeName, document.querySelectorAll('*')));
+		let iter = document.querySelectorAll('*')[Symbol.iterator]();
+		log(iter.next());
+		log(iter.next());
+		log(iter.next());
+		log(iter.next());
+
+		function* gen() {
+			yield 1;
+			if (false) yield 2;
+			yield 3;
+		}
+		log(map(a => a * a, gen()));
+
+		let m = new Map();
+		m.set('a', 10);
+		m.set('b', 20);
+		// log(map(([key, value]) => [key, value * 2], m));
+		log(new Map(map(([key, value]) => [key, value * 2], m)));
+
+	</script>
 
 </body>
 
