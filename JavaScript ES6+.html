@@ -470,6 +470,39 @@
 
 	</script>
 
+	<script>
+
+		// # take
+		const take = curry((l, iter) => {
+			let res = [];
+			for (const a of iter) {
+				res.push(a);
+				if (res.length == l) return res;
+			}
+			return res;
+		});
+
+		console.time('');
+		go(
+			range(1000000),
+			take(5),
+			reduce(add),
+			log
+		)
+		console.timeEnd('');
+
+		console.time('');
+		go(
+			L.range(1000000),
+			// L.range(Infinity),
+			take(5),
+			reduce(add),
+			log
+		)
+		console.timeEnd('');
+
+	</script>
+
 </body>
 
 </html>
