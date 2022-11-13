@@ -606,7 +606,41 @@
 			yield 13;
 		}
 		log(join('-', ab()));
-	// log(ab.join('-'));
+		// log(ab.join('-'));
+
+	</script>
+
+	<script>
+
+		let users = [
+			{ age: 32 },
+			{ age: 31 },
+			{ age: 37 },
+			{ age: 28 },
+			{ age: 25 },
+			{ age: 32 },
+			{ age: 31 },
+			{ age: 37 }
+		];
+
+		// # find
+		const find = curry((f, iter) => go(
+			iter,
+			L.filter(a => (console.log(a), f(a))),
+			a => (console.log(a), a),
+			// L.filter(f),
+			take(1),
+			([a]) => a
+		));
+
+		log(find(u => u.age < 30)(users));
+
+		go(
+			users,
+			map(u => u.age),
+			find(a => a < 30),
+			log
+		)
 
 	</script>
 
