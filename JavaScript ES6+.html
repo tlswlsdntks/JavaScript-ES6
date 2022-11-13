@@ -576,6 +576,40 @@
 
 	</script>
 
+	<script>
+
+		// queryStr
+		let queryStr = pipe(
+			Object.entries,
+			map(([key, value]) => `${key}=${value}`),
+			reduce((a, b) => `${a}&${b}`)
+		)
+		// log(queryStr({ limit: 10, offset: 10, type: 'notice' }));
+
+		L.entries = function* (obj) {
+			for (const a in obj) yield [a, obj[a]];
+		}
+
+		// join
+		const join = curry((sep = ',', iter) => reduce((a, b) => `${a}${sep}${b}`, iter));
+		queryStr = pipe(
+			L.entries,
+			map(([key, value]) => `${key}=${value}`),
+			join('&')
+		)
+		log(queryStr({ limit: 10, offset: 10, type: 'notice' }));
+
+		function* ab() {
+			yield 10;
+			yield 11;
+			yield 12;
+			yield 13;
+		}
+		log(join('-', ab()));
+	// log(ab.join('-'));
+
+	</script>
+
 </body>
 
 </html>
