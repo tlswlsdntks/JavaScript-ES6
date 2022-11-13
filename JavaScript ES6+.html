@@ -543,6 +543,7 @@
 		// [ 10, 11, 12, ... ]
 		// [ 11, 13, 15, ... ]
 		// [ 11, 13 ]
+		console.time('');
 		go(
 			range(10),
 			map(a => a + 10),
@@ -550,17 +551,20 @@
 			take(2),
 			log
 		)
+		console.timeEnd('');
 
 		// 0	  1
 		// 10	  11
 		// false  true
+		console.time('');
 		go(
-			L.range(10),
+			L.range(Infinity),
 			L.map(n => n + 10),
 			L.filter(a => a % 2),
 			take(2),
 			log
 		)
+		console.timeEnd('');
 
 	</script>
 
