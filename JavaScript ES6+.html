@@ -664,7 +664,8 @@
 		const isIterable = a => a && a[Symbol.iterator];
 		L.flatten = function* (iter) {
 			for (const a of iter) {
-				if (isIterable(a)) for (const b of a) yield b;
+				// if (isIterable(a)) for (const b of a) yield b;
+				if (isIterable(a)) yield* a;
 				else yield a;
 			}
 		}
@@ -678,6 +679,15 @@
 
 		const flatten = pipe(L.flatten, takeAll);
 		log(flatten([...[1, 2], 3, 4, ...[5, 6], ...[7, 8, 9]]));
+
+		// # L.deepFlat
+		L.deepFlat = function* f(iter) {
+			for (const a of iter) {
+				if (isIterable(a)) yield* f(a);
+				else yield a;
+			}
+		};
+		log([...L.deepFlat([1, [2, [3, 4], [[5]]]])]);
 
 	</script>
 
