@@ -644,6 +644,20 @@
 
 	</script>
 
+	<script>
+
+		// # L.map + take 로 map 만들기	
+		let takeAll = take(Infinity);
+		map = curry((fn, iter) => go(iter, L.map(fn), takeAll));
+		// map = curry(pipe(L.map, takeAll));
+		log(map(a => a + 10, L.range(10)));
+
+		// # L.filter + take 로 filter 만들기
+		filter = curry(pipe(L.filter, takeAll));
+		log(filter(a => a % 2, L.range(10)));
+
+	</script>
+
 </body>
 
 </html>
