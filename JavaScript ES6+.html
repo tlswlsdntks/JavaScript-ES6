@@ -691,6 +691,41 @@
 
 	</script>
 
+	<script>
+
+		// # L.flatMap
+		log([[1, 2], [3, 4], [5, 6, 7]].flatMap(a => a.map(a => a * a)));
+		log(flatten([[1, 2], [3, 4], [5, 6, 7]].map(a => a.map(a => a * a))));
+
+		L.flatMap = curry(pipe(L.map, L.flatten));
+		const flatMap = curry(pipe(L.map, flatten));
+
+		// let flit = L.flatMap(map(a => a * a), [[1, 2], [3, 4], [5, 6, 7]]);
+		// log(...flit);
+		let flit = L.flatMap(a => a, [[1, 2], [3, 4], [5, 6, 7]]);
+		// log([...flit]);
+		log(flit.next());
+		log(flit.next());
+		log(flit.next());
+		log(flit.next());
+		log(flit.next());
+		log(flit.next());
+		log(flit.next());
+		log(flit.next());
+
+		// [0, 1, 0, 1, 2, 0, 1, 2, 3]
+		log(flatMap(L.range, map(a => a + 1, [1, 2, 3])));
+		let fmit = L.flatMap(L.range, map(a => a + 1, [1, 2, 3]));
+		log(fmit.next());
+		log(fmit.next());
+		log(fmit.next());
+		log(fmit.next());
+
+		// [0, 1, 0]
+		log(take(3, L.flatMap(L.range, map(a => a + 1, [1, 2, 3]))));
+
+	</script>
+
 </body>
 
 </html>
