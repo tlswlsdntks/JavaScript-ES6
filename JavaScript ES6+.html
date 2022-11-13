@@ -503,6 +503,37 @@
 
 	</script>
 
+	<script>
+
+		// # 이터러블 중심 프로그래밍의 지연 평가(Lazy Evaluation)
+		// 	- 제때 계산법
+		// 	- 느긋한 계산법
+		// 	- 제네레이터/이터레이터 프로토콜을 기반으로 구현
+
+		// # L.map
+		L.map = function* (fn, iter) {
+			for (const a of iter) yield fn(a);
+		}
+		let itt = L.map(a => a + 10, [1, 2, 3, 4]);
+		// log(itt.next());
+		// log(itt.next());
+		// log(itt.next());
+		// log(...itt);
+		log(itt.next().value);
+
+		// # L.filter
+		L.map = function* (fn, iter) {
+			for (const a of iter) if (fn(a)) yield a;
+		}
+		let itt2 = L.map(a => a % 2, [1, 2, 3, 4, 5]);
+		// log(itt2.next());
+		// log(itt2.next());
+		// log(itt2.next());
+		// log(...itt2);
+		log(itt2.next().value);
+
+	</script>
+
 </body>
 
 </html>
