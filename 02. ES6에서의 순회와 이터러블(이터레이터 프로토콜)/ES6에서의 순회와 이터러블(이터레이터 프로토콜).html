@@ -13,16 +13,17 @@
         ; ((_) => { clear(); })();
 
         // # 기존과 달라진 ES6에서의 리스트 순회
+        log('-- 기존과 달라진 ES6에서의 리스트 순회 --');
         //	- for of
         const list = [1, 2, 3];
         const str = "abc";
         for (const a of list) log(a);
         for (const a of str) log(a);
 
-        // # 이터러블/이터레이터 프로토콜
-        //	- 이러러블을 for...of, 전개 연산자 등과 함께 동작하도록한 규약
 
+        // # 이터러블/이터레이터 프로토콜
         //  - Array를 통해 알아보기
+        log('-- Array를 통해 알아보기 --');
         let arr = [1, 2, 3];
         for (const a of arr) log(a);
         let iterArr = arr[Symbol.iterator]();
@@ -31,6 +32,7 @@
         for (const a of iterArr) log(a);
 
         //  - Set을 통해 알아보기
+        log('-- Set을 통해 알아보기 --');
         let set = new Set([1, 2, 3]);
         for (const a of set) log(a);
         let iterSet = set[Symbol.iterator]();
@@ -39,6 +41,7 @@
         for (const a of iterSet) log(a);
 
         //  - Map를 통해 알아보기
+        log('-- Map를 통해 알아보기 --');
         let map = new Map([['a', 1], ['b', 2], ['c', 3]]);
         for (const a of map) log(a);
         let iterMap = map[Symbol.iterator]();
@@ -49,6 +52,9 @@
         for (const a of map.values()) log(a);
         for (const a of map.entries()) log(a);
 
+        //	- 이러러블을 for...of, 전개 연산자 등과 함께 동작하도록한 규약
+        log('-- 이터러블/이터레이터 프로토콜 --');
+        
         //  - 이터러블: 이터레이터를 리턴하는 [Symbol.iterator]()를 가진 값
         log(arr[Symbol.iterator]());
         // arr[Symbol.iterator] = null;
@@ -58,6 +64,35 @@
         iterMap = map.values()[Symbol.iterator]();
         for (const a of map.values()) log(iterMap.next());
         
+
+        // # 사용자 정의 이터러블
+        log('-- 사용자 정의 이터러블 --');
+		const iterable = {
+			[Symbol.iterator]() {
+				let i = 3;
+				return {
+					next() {
+						return i == 0 ? { done: true } : { value: i--, done: false }
+					},
+					[Symbol.iterator]() { return this; }
+				}
+			}
+		};
+		let iterator = iterable[Symbol.iterator]();
+        for (const a of iterable) log('iterable: ', a);
+        log(iterator[Symbol.iterator]() == iterator);
+		log(iterator.next());
+		log(iterator.next());
+		for (const a of iterator) log('iterator: ', a);
+
+        //  - querySelectorAll
+        log('-- querySelectorAll --');
+		for (const a of document.querySelectorAll('*')) log(a);
+		const all = document.querySelectorAll('*');
+		let iterAll = all[Symbol.iterator]();
+		log(iterAll.next());
+		log(iterAll.next());
+		log(iterAll.next());
 
     </script>
 

@@ -10,44 +10,6 @@
 
 	<script>
 
-		// ### 사용자 정의 이터러블을 통해 알아보기.
-		const iterable = {
-			[Symbol.iterator]() {
-				let i = 3;
-				return {
-					next() {
-						return i == 0 ? { done: true } : { value: i--, done: false }
-					},
-					[Symbol.iterator]() { return this; }
-				}
-			}
-		};
-		let iterator2 = iterable[Symbol.iterator]();
-		console.log(iterator2.next());
-		console.log(iterator2.next());
-		console.log(iterator2.next());
-		console.log(iterator2.next());
-
-		for (const a of iterable) log(a);
-		for (const a of iterator2) log(a);
-
-		const arr2 = [1, 2, 3];
-		let iter22 = arr2[Symbol.iterator]();
-		iter22.next();
-		log(iter22[Symbol.iterator]() == iter22);
-		for (const a of iter22) log(a);
-
-		for (const a of document.querySelectorAll('*')) log(a);
-		const all = document.querySelectorAll('*');
-		let iter33 = all[Symbol.iterator]();
-		log(iter33.next());
-		log(iter33.next());
-		log(iter33.next());
-
-	</script>
-
-	<script>
-
 		// ## 전개연산자
 		const aa = [1, 2];
 		// aa[Symbol.iterator] = null;
