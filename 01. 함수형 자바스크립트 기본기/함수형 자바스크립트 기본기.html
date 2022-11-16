@@ -30,7 +30,7 @@
         // 	- 변수에 담을 수 있다.
         // 	- 함수의 인자로 사용될 수 있다.
         // 	- 함수의 결과로 사용될 수 있다.
-
+        log('-- 일급 --');
         const a = 10;
         const add10 = a => a + 10;
         const r = add10(a);
@@ -40,6 +40,7 @@
         // # 일급함수
         // 	- 함수를 값으로 다룰 수 있다.
         //	- 조합성과 추상화의 도구.
+        log('-- 일급함수 --');
         const add5 = a => a + 5;
         log(add5);
         log(add5(5));
@@ -57,13 +58,16 @@
 
         
         // # 함수를 인자로 받아서 실행하는 함수
+        log('-- 함수를 인자로 받아서 실행하는 함수 --');
         // 	- apply1
+        log('-- apply1 --');
         const apply1 = f => f(1);
         const add2 = a => a + 2;
         log(apply1(add2));
         log(apply1(a => a + 2));
 
         // 	- times
+        log('-- times --');
         const times = (f, n) => {
             let i = -1;
             while (++i < n) f(i);
@@ -72,6 +76,7 @@
         times(a => log(a + 10), 3);
 
         //	- addMaker
+        log('-- addMaker --');
         const addMaker = a => b => a + b;
         const add15 = addMaker(15);
         log(add15);
