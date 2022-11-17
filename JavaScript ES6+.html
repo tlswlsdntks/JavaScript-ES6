@@ -10,26 +10,6 @@
 
 	<script>
 
-		// # 제네레이터/이터레이터
-		// 	- 제네레이터: 이터레이터이자 이터러블을 생성하는 함수.
-
-		function* gen() {
-			yield 1;
-			if (false) yield 2;
-			yield 3;
-			return 100;
-		}
-		for (const a of gen()) log(a);
-		let iter0 = gen();
-		log(iter0 == iter0[Symbol.iterator]());
-		log(iter0.next());
-		log(iter0.next());
-		log(iter0.next());
-
-	</script>
-
-	<script>
-
 		// # odds
 		function* infinity(i = 0) {
 			while (true) yield i++;
