@@ -54,7 +54,7 @@
 
         //	- 이러러블을 for...of, 전개 연산자 등과 함께 동작하도록한 규약
         log('-- 이터러블/이터레이터 프로토콜 --');
-        
+
         //  - 이터러블: 이터레이터를 리턴하는 [Symbol.iterator]()를 가진 값
         log(arr[Symbol.iterator]());
         // arr[Symbol.iterator] = null;
@@ -63,36 +63,44 @@
         //  - 이터레이터: { value, done } 객체를 리턴하는 next()를 가진 값
         iterMap = map.values()[Symbol.iterator]();
         for (const a of map.values()) log(iterMap.next());
-        
+
 
         // # 사용자 정의 이터러블
         log('-- 사용자 정의 이터러블 --');
-		const iterable = {
-			[Symbol.iterator]() {
-				let i = 3;
-				return {
-					next() {
-						return i == 0 ? { done: true } : { value: i--, done: false }
-					},
-					[Symbol.iterator]() { return this; }
-				}
-			}
-		};
-		let iterator = iterable[Symbol.iterator]();
+        const iterable = {
+            [Symbol.iterator]() {
+                let i = 3;
+                return {
+                    next() {
+                        return i == 0 ? { done: true } : { value: i--, done: false }
+                    },
+                    [Symbol.iterator]() { return this; }
+                }
+            }
+        };
+        let iterator = iterable[Symbol.iterator]();
         for (const a of iterable) log('iterable: ', a);
         log(iterator[Symbol.iterator]() == iterator);
-		log(iterator.next());
-		log(iterator.next());
-		for (const a of iterator) log('iterator: ', a);
+        log(iterator.next());
+        log(iterator.next());
+        for (const a of iterator) log('iterator: ', a);
 
         //  - querySelectorAll
         log('-- querySelectorAll --');
-		for (const a of document.querySelectorAll('*')) log(a);
-		const all = document.querySelectorAll('*');
-		let iterAll = all[Symbol.iterator]();
-		log(iterAll.next());
-		log(iterAll.next());
-		log(iterAll.next());
+        for (const a of document.querySelectorAll('*')) log(a);
+        const all = document.querySelectorAll('*');
+        let iterAll = all[Symbol.iterator]();
+        log(iterAll.next());
+        log(iterAll.next());
+        log(iterAll.next());
+
+        
+        // # 전개연산자
+        log('-- 전개연산자 --');
+        log(...arr);
+        log([...arr, [4, 5]]);
+        log([...arr, ...[4, 5]]);
+        log([...arr, ...set, ...map, ...map.keys()]);
 
     </script>
 
