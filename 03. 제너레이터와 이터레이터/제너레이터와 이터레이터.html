@@ -43,11 +43,11 @@
             }
         }
 
-        function* oods(l) {
+        function* odds(l) {
             for (const a of limit(l, infinity(1))) if (a % 2) yield a;
         }
 
-        iter = oods(10);
+        iter = odds(10);
         log(iter.next());
         log(iter.next());
         log(iter.next());
@@ -55,7 +55,18 @@
         log(iter.next());
         log(iter.next());
 
-        for (const a of oods(40)) log(a);
+        for (const a of odds(40)) log(a);
+
+
+        // # for of, 전개 연산자, 구조 분해, 나머지 연산자
+        log('-- for of, 전개 연산자, 구조 분해, 나머지 연산자 --');
+		log(...odds(10));
+		log([...odds(10), ...odds(20)]);
+
+		const [frist, second, ...rest] = odds(10);
+		log(frist);
+		log(second);
+		log(rest);
 
     </script>
 
