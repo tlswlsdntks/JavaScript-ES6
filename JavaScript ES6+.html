@@ -10,43 +10,6 @@
 
 	<script>
 
-		// # map
-		let names = [];
-		for (const p of products) {
-			names.push(p.name);
-		}
-		log(names);
-		log(map(p => p.name, products));
-
-		// # 이터러블 프로토콜을 이용한 map의 다형성
-		log([1, 2, 3].map(a => a + 1));
-
-		// log(document.querySelectorAll('*').map(el => el.nodeName));
-		log(map(el => el.nodeName, document.querySelectorAll('*')));
-
-		let iter = document.querySelectorAll('*')[Symbol.iterator]();
-		log(iter.next());
-		log(iter.next());
-		log(iter.next());
-		log(iter.next());
-
-		function* gen() {
-			yield 1;
-			if (false) yield 2;
-			yield 3;
-		}
-		log(map(a => a * a, gen()));
-
-		let m = new Map();
-		m.set('a', 10);
-		m.set('b', 20);
-		// log(map(([key, value]) => [key, value * 2], m));
-		log(new Map(map(([key, value]) => [key, value * 2], m)));
-
-	</script>
-
-	<script>
-
 		// # filter
 		let over20000 = [];
 		for (const p of products) {

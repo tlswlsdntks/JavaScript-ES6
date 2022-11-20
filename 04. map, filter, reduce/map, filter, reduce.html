@@ -20,6 +20,42 @@
             { name: '바지', price: 25000 },
         ];
 
+
+        // # curry
+        const curry = fn => (a, ..._) => _.length ? fn(a, ..._) : (..._) => fn(a, ..._);
+
+
+        // # map
+        const map = curry((fn, iter) => {
+            let res = [];
+            for (const a of iter) res.push(fn(a));
+            return res;
+        })
+        log(map(product => product.name, products));
+
+
+        // # 이터러블 프로토콜을 이용한 map의 다형성
+        // log(document.querySelectorAll('*').map(el => el.nodeName));
+        log(map(el => el.nodeName), document.querySelectorAll('*'));
+        let iter = document.querySelectorAll('*')[Symbol.iterator]();
+        log(iter.next());
+        log(iter.next());
+        log(iter.next());
+        log(iter.next());
+
+        function* gen() {
+            yield 1;
+            if (false) yield 2;
+            yield 3;
+        }
+        log(map(a => a * a, gen()));
+
+        let m = new Map();
+        m.set('a', 10);
+        m.set('b', 20);
+        log(m);
+        log(new Map(map(([key, value]) => [key, value * 2], m)));
+
     </script>
 
 </body>
