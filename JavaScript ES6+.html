@@ -10,29 +10,6 @@
 
 	<script>
 
-		// # filter
-		let over20000 = [];
-		for (const p of products) {
-			if (p.price >= 20000) over20000.push(p);
-		}
-		// log(over20000);
-		log(...over20000);
-		// log(filter(p => p.price >= 20000, products));
-		log(...filter(p => p.price >= 20000, products));
-
-		log(filter(n => n % 2, [1, 2, 3, 4]));
-		log(filter(n => n % 2, function* () {
-			yield 1;
-			yield 2;
-			yield 3;
-			yield 4;
-			yield 5;
-		}()));
-
-	</script>
-
-	<script>
-
 		// # reduce
 		let nums = [1, 2, 3, 4, 5];
 		let total = 0;

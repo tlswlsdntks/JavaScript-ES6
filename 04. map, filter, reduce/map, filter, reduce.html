@@ -56,6 +56,26 @@
         log(m);
         log(new Map(map(([key, value]) => [key, value * 2], m)));
 
+
+        // # filter
+        const filter = curry((fn, iter) => {
+            let res = [];
+            for (const a of iter) if(fn(a)) res.push(a);
+            return res;
+        })
+        log(filter(p => p.price >= 20000, products));
+        log(...filter(p => p.price >= 20000, products));
+        // *gen()()
+        log(filter(n => n % 2, function* () {
+            yield 1;
+            yield 2;
+            yield 3;
+            yield 4;
+            yield 5;
+        }()));
+
+        
+
     </script>
 
 </body>
