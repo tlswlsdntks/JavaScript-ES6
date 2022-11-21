@@ -10,22 +10,6 @@
 
 	<script>
 
-		// # reduce
-		let nums = [1, 2, 3, 4, 5];
-		let total = 0;
-		for (const n of nums) total += n;
-		log(total);
-		let add = (a, b) => a + b;
-		log(reduce(add, 0, nums));
-		// log(add(add(add(add(add(0, 1), 2), 3), 4), 5));
-		log(reduce(add, nums));
-
-		log(reduce((tp, product) => tp += product.price, 0, products));
-
-	</script>
-
-	<script>
-
 		// # 중첩사용과 함수형사고
 		log(reduce(add, map(p => p.price, filter(p => p.price < 20000, products))));
 		log(reduce(add, filter(n => n >= 20000, map(p => p.price, products))));

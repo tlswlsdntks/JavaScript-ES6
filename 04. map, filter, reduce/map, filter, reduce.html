@@ -26,6 +26,7 @@
 
 
         // # map
+        log('-- map --');
         const map = curry((fn, iter) => {
             let res = [];
             for (const a of iter) res.push(fn(a));
@@ -35,6 +36,7 @@
 
 
         // # 이터러블 프로토콜을 이용한 map의 다형성
+        log('-- 이터러블 프로토콜을 이용한 map의 다형성 --');
         // log(document.querySelectorAll('*').map(el => el.nodeName));
         log(map(el => el.nodeName), document.querySelectorAll('*'));
         let iter = document.querySelectorAll('*')[Symbol.iterator]();
@@ -58,9 +60,10 @@
 
 
         // # filter
+        log('-- filter --');
         const filter = curry((fn, iter) => {
             let res = [];
-            for (const a of iter) if(fn(a)) res.push(a);
+            for (const a of iter) if (fn(a)) res.push(a);
             return res;
         })
         log(filter(p => p.price >= 20000, products));
@@ -74,7 +77,21 @@
             yield 5;
         }()));
 
-        
+
+        // # reduce
+        log('-- reduce --');
+        const reduce = curry((fn, acc, iter) => {
+            if (!iter) {
+                iter = acc[Symbol.iterator]();
+                // { value: 1, done: false }
+                acc = iter.next().value;
+            }
+            for (const a of iter) acc = fn(acc, a);
+            return acc;
+        });
+        log(reduce((a, b) => a + b, 0, [1,2,3,4]));
+        log(reduce((a, b) => a + b, [1,2,3,4]));
+        log(reduce((tp, product) => tp += product.price, 0, products));
 
     </script>
 
