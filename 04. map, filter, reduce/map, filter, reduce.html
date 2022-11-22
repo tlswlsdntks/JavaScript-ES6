@@ -94,6 +94,8 @@
         log(reduce((tp, product) => tp += product.price, 0, products));
 
         // # 중첩사용과 함수형사고
+        
+        
         log(reduce((a, b) => a + b, map(n => n.price, filter(p => p.price < 20000, products))));
         log(reduce((a, b) => a + b, filter(n => n < 20000, map(p => p.price, products))));
 
