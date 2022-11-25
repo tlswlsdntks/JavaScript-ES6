@@ -97,6 +97,19 @@
         log(reduce((a, b) => a + b, map(n => n.price, filter(p => p.price < 20000, products))));
         log(reduce((a, b) => a + b, filter(n => n < 20000, map(p => p.price, products))));
 
+
+        // # 코드를 값으로 다루어 표현력 높이기
+        // # go
+        const go = (...arg) => reduce((a, fn) => fn(a), arg);
+        go(
+            1,
+            a => a + 1,
+            a => a * 2,
+            a => a * a,
+            log
+        )
+
+
     </script>
 
 </body>
