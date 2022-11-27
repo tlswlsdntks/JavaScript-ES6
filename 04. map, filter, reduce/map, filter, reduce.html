@@ -98,63 +98,6 @@
         log(reduce((a, b) => a + b, map(n => n.price, filter(p => p.price < 20000, products))));
         log(reduce((a, b) => a + b, filter(n => n < 20000, map(p => p.price, products))));
 
-
-        // # 코드를 값으로 다루어 표현력 높이기
-        // # go
-        const go = (...arg) => reduce((a, fn) => fn(a), arg);
-        go(
-            1,
-            a => a + 1,
-            a => a * 2,
-            a => a * a,
-            log
-        )
-
-        go(
-            products,
-            products => filter(product => product.price < 20000, products),
-            products => map(product => product.price, products),
-            price => reduce((a, b) => a + b, price),
-            log
-        )
-
-        go(
-            products,
-            filter(product => product.price < 20000),
-            map(product => product.price),
-            reduce((a, b) => a + b),
-            log
-        )
-
-
-        // # pipe
-        const pipe = (fn, ...fns) => (...arg) => go(fn(...arg), ...fns);
-        let p1 = pipe(
-            (a, b) => a + b,
-            a => a * 2,
-            a => a * a,
-            log
-        )
-        p1(1, 2);
-
-
-        // # 함수 조합으로 함수 만들기
-        const total_price = pipe(
-            map(product => product.price),
-            reduce((a, b) => a + b)
-        )
-        const filter_total_price = predi => pipe(
-            filter(predi),
-            total_price
-        )
-        go(
-            products,
-            filter_total_price(product => product.price < 20000),
-            log
-        )
-
-
-
     </script>
 
 </body>

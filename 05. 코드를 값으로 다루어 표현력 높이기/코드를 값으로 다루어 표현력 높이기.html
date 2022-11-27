@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title> 함수형 프로그래밍과 JavaScript ES6+ </title>
+    <script> const log = console.log; const clear = console.clear; </script>
+</head>
+
+<body>
+
+    <script>
+
+        ; ((_) => { clear(); })();
+
+        const products = [
+            { name: '반팔티', price: 15000 },
+            { name: '긴팔티', price: 20000 },
+            { name: '핸드폰케이스', price: 15000 },
+            { name: '후드티', price: 30000 },
+            { name: '바지', price: 25000 },
+        ];
+
+
+        // # curry
+        const curry = fn => (a, ..._) => _.length ? fn(a, ..._) : (..._) => fn(a, ..._);
+
+
+        // # map
+        log('-- map --');
+        const map = curry((fn, iter) => {
+            let res = [];
+            for (const a of iter) res.push(fn(a));
+            return res;
+        })
+
+
+        // # filter
+        log('-- filter --');
+        const filter = curry((fn, iter) => {
+            let res = [];
+            for (const a of iter) if (fn(a)) res.push(a);
+            return res;
+        })
+
+
+        // # reduce
+        log('-- reduce --');
+        const reduce = curry((fn, acc, iter) => {
+            if (!iter) {
+                iter = acc[Symbol.iterator]();
+                // { value: 1, done: false }
+                acc = iter.next().value;
+            }
+            for (const a of iter) acc = fn(acc, a);
+            return acc;
+        });
+
+
+        // # 코드를 값으로 다루어 표현력 높이기
+        // # go
+        log('-- go --');
+        const go = (...arg) => reduce((a, fn) => fn(a), arg);
+        go(
+            1,
+            a => a + 1,
+            a => a * 2,
+            a => a * a,
+            log
+        )
+
+        go(
+            products,
+            products => filter(product => product.price < 20000, products),
+            products => map(product => product.price, products),
+            price => reduce((a, b) => a + b, price),
+            log
+        )
+
+        go(
+            products,
+            filter(product => product.price < 20000),
+            map(product => product.price),
+            reduce((a, b) => a + b),
+            log
+        )
+
+
+        // # pipe
+        log('-- pipe --');
+        const pipe = (fn, ...fns) => (...arg) => go(fn(...arg), ...fns);
+        let p1 = pipe(
+            (a, b) => a + b,
+            a => a * 2,
+            a => a * a,
+            log
+        )
+        p1(1, 2);
+
+
+        // # 함수 조합으로 함수 만들기
+        const total_price = pipe(
+            map(product => product.price),
+            reduce((a, b) => a + b)
+        )
+        const filter_total_price = predi => pipe(
+            filter(predi),
+            total_price
+        )
+        go(
+            products,
+            filter_total_price(product => product.price < 20000),
+            log
+        )
+
+    </script>
+
+</body>
+
+</html>
