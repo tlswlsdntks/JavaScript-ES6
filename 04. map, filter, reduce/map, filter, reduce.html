@@ -110,6 +110,22 @@
             log
         )
 
+        go(
+            products,
+            products => filter(product => product.price < 20000, products),
+            products => map(product => product.price, products),
+            price => reduce((a, b) => a + b, price),
+            log
+        )
+
+        go(
+            products,
+            filter(product => product.price < 20000),
+            map(product => product.price),
+            reduce((a, b) => a + b),
+            log
+        )
+
 
         // # pipe
         const pipe = (fn, ...fns) => (...arg) => go(fn(...arg), ...fns);
