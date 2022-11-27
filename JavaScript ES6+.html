@@ -10,30 +10,6 @@
 
 	<script>
 
-		go(
-			products,
-			products => filter(p => p.price < 20000, products),
-			products => map(p => p.price, products),
-			prices => reduce(add, prices),
-			log
-		)
-
-		// # curry
-		let mult = curry((a, b) => a * b);
-		log(mult(3)(5));
-		let mult3 = mult(3);
-		log(mult3(10));
-		log(mult3(5));
-		log(mult3(3));
-
-		go(
-			products,
-			filter(p => p.price < 20000),
-			map(p => p.price),
-			reduce(add),
-			log
-		)
-
 		// # 함수 조합으로 함수 만들기
 		const total_price = pipe(
 			map(p => p.price),
