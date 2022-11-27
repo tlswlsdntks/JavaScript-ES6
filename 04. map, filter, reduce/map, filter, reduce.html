@@ -138,6 +138,23 @@
         p1(1, 2);
 
 
+        // # 함수 조합으로 함수 만들기
+        const total_price = pipe(
+            map(product => product.price),
+            reduce((a, b) => a + b)
+        )
+        const filter_total_price = predi => pipe(
+            filter(predi),
+            total_price
+        )
+        go(
+            products,
+            filter_total_price(product => product.price < 20000),
+            log
+        )
+
+
+
     </script>
 
 </body>
