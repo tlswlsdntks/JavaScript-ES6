@@ -93,6 +93,7 @@
         log(reduce((a, b) => a + b, [1, 2, 3, 4]));
         log(reduce((tp, product) => tp += product.price, 0, products));
 
+
         // # 중첩사용과 함수형사고
         log(reduce((a, b) => a + b, map(n => n.price, filter(p => p.price < 20000, products))));
         log(reduce((a, b) => a + b, filter(n => n < 20000, map(p => p.price, products))));
@@ -108,6 +109,17 @@
             a => a * a,
             log
         )
+
+
+        // # pipe
+        const pipe = (fn, ...fns) => (...arg) => go(fn(...arg), ...fns);
+        let p1 = pipe(
+            (a, b) => a + b,
+            a => a * 2,
+            a => a * a,
+            log
+        )
+        p1(1, 2);
 
 
     </script>
