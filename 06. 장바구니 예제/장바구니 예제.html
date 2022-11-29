@@ -23,7 +23,9 @@
 
         let add = (a, b) => a + b;
 
-        const curry = null;
+        const curry = fn => (a, ..._) => _.length ? fn(a, ..._) : (..._) => fn(a, ..._) ;
+
+        const reduce = null;
 
         const go = null;
 
